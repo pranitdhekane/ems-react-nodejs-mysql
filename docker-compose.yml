@@ -1,33 +1,4 @@
 services:
-
-  mysql:
-    image: mysql:8.0
-
-    container_name: ems-mysql
-
-    restart: unless-stopped
-
-    environment:
-      MYSQL_ROOT_PASSWORD: 4416
-      MYSQL_DATABASE: employee_db
-
-    ports:
-      - "3306:3306"
-
-    volumes:
-      - ./database/db.sql:/docker-entrypoint-initdb.d/db.sql
-      - mysql_data:/var/lib/mysql
-
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p4416"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-
-    networks:
-      - ems-network
-
   backend:
     build:
       context: ./backend
@@ -42,11 +13,6 @@ services:
 
     ports:
       - "5001:5001"
-
-    depends_on:
-      mysql:
-        condition: service_healthy
-
     networks:
       - ems-network
 
@@ -63,13 +29,11 @@ services:
       - "80:80"
 
     depends_on:
-      - backend
+      backend:
+        condition: service_started
 
     networks:
       - ems-network
-
-volumes:
-  mysql_data:
 
 networks:
   ems-network:
