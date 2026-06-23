@@ -1,0 +1,17 @@
+curl -X POST http://ems-alb-113918281.ap-south-1.elb.amazonaws.com:500/api/auth/login \
+-H "Content-Type: application/json" \
+-d '{"email":"admin@example.com","password":"Admin@123"}'
+
+
+
+curl -X POST http://ems-alb...:500/api/auth/login
+
+
+curl -X POST http://ems-alb-113918281.ap-south-1.elb.amazonaws.com:500/api/auth/login
+
+
+curl -X POST http://localhost:5001/api/auth/login ...
+
+
+
+
