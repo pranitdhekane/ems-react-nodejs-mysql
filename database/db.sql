@@ -29,6 +29,6 @@ VALUES
 (
 'Admin',
 'admin@example.com',
-'$2b$10$4utkV4m8v6u2Z7uVxqHf7OoIq9eC6oHWhbN0D9xRSh4lR4mZw7jQ6',
+'$2a$10$j8Igq/zKwm5Ccp9lLb2hMOj2x3Mo4P8/nV4DhoVDMqscKdzT7gQJu',
 'admin'
 );
