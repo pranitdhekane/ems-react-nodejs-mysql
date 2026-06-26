@@ -30,8 +30,7 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      image: dpranit/ems-backen:v1
 
     container_name: ems-backend
 
@@ -52,8 +51,7 @@ services:
 
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      image: dpranit/ems-frontend:v1
 
     container_name: ems-frontend
 
