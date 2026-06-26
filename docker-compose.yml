@@ -28,7 +28,7 @@ services:
       - ems-network
 
   backend:
-      image: dpranit/ems-backen:v1
+      image: dpranit/ems-backend:v1
 
     container_name: ems-backend
 
