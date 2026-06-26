@@ -29,7 +29,6 @@ services:
       - ems-network
 
   backend:
-    build:
       image: dpranit/ems-backen:v1
 
     container_name: ems-backend
@@ -50,7 +49,7 @@ services:
       - ems-network
 
   frontend:
-    build:
+    
       image: dpranit/ems-frontend:v1
 
     container_name: ems-frontend
