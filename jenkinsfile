@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        
+        stage("Cloning repo"){
+            steps{
+                echo "clonig repo in local"
+                git url: "https://github.com/pranitdhekane/ems-react-nodejs-mysql.git", branch:"main"
+            }
+            
+        }
+        
+        stage("building Images"){
+            steps{
+                sh '''
+                whoami
+                ls
+                docker build -t ems-frontend:latest frontend/.
+                docker build -t ems-backend:latest backend/.
+                '''
+            }    
+        }
+        
+        stage("Pushing image to docker hub"){
+            
+            steps{
+                echo "pushing image to dockerhub"
+                sh "docker tag ems-frontend:latest dpranit/ems-frontend:v1"
+                sh "docker tag ems-backend:latest dpranit/ems-backend:v1"
+                withCredentials([usernamePassword(credentialsId:"dockerhubcred",
+            passwordVariable:"dockerhubpass",
+            usernameVariable:"dockerhubusername")]){
+               
+               sh "docker login -u ${env.dockerhubusername} -p ${env.dockerhubpass}"
+               sh "docker push dpranit/ems-frontend:v1"
+               sh "docker push dpranit/ems-backend:v1"
+            }  
+                   
+            }
+            
+        }
+        
+        stage("deploying app"){
+            
+            steps{
+                
+                echo "Delpoying app"
+                sh "docker compose up -d"
+                
+            }
+            
+        }
+        
+     }
+     
+}
