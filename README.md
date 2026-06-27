@@ -101,6 +101,78 @@ employee-management-app/
 ```
 
 ---
+# Configuration Changes
+
+Before running or deploying the application, update the configuration files according to your environment.
+
+---
+
+## Frontend API Configuration
+
+Open the following file:
+
+```text
+frontend/src/services/api.js
+```
+
+Update the `baseURL` value based on your deployment environment.
+
+### Local Development
+
+Replace the EC2 public IP with `localhost`.
+
+```javascript
+baseURL: "http://localhost:5001/api"
+```
+
+### AWS EC2 Deployment
+
+Replace `localhost` with your EC2 instance's public IP address.
+
+Example:
+
+```javascript
+baseURL: "http://<EC2_PUBLIC_IP>:5001/api"
+```
+
+For example:
+
+```javascript
+baseURL: "http://3.111.197.146:5001/api"
+```
+
+---
+
+## Backend Environment Variables
+
+Open the following file:
+
+```text
+backend/.env
+```
+
+Update the database configuration according to your environment.
+
+### Local MySQL
+
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=employee_db
+```
+
+### AWS RDS
+
+```env
+DB_HOST=<RDS_ENDPOINT>
+DB_USER=your_username
+DB_PASSWORD=your_password
+DB_NAME=employee_db
+```
+
+Also verify the remaining environment variables such as `PORT` and `JWT_SECRET` before starting the application.
+
 
 # Local Installation
 
@@ -295,6 +367,54 @@ Admin@123
 ```
 
 ---
+
+# Jenkins CI/CD Deployment
+
+This project supports automated deployment using Jenkins.
+
+## Prerequisites
+
+Before running the Jenkins pipeline, ensure the following are configured:
+
+* Jenkins Server
+* Git
+* Docker
+* Docker Compose
+* Docker Hub Account
+* Docker Hub credentials configured in Jenkins
+* GitHub repository access
+
+---
+
+## Jenkins Pipeline Workflow
+
+The Jenkins pipeline performs the following tasks automatically:
+
+1. Clones the latest source code from the GitHub repository.
+2. Builds Docker images for the frontend and backend applications.
+3. Tags the Docker images.
+4. Pushes the images to Docker Hub.
+5. Deploys the latest application using Docker Compose.
+
+---
+
+## Jenkins Credentials
+
+Configure your Docker Hub credentials in Jenkins before running the pipeline.
+
+Update the following according to your environment:
+
+* GitHub Repository URL
+* Docker Hub Username
+* Docker Image Tags
+* Docker Compose Configuration
+
+---
+
+## Deployment Verification
+
+After the pipeline completes successfully, verify that all application containers are running correctly using Docker.
+
 
 # Docker Deployment
 
